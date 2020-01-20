@@ -119,6 +119,22 @@ export const GitHubChannel = React.memo(function _GitHubChannel({
   )
 })
 
+export const BrandChannel = React.memo(function _GitHubChannel({
+  alignCenter,
+  isDarkMode,
+}: ExternalChannelProps) {
+  return (
+    <Channel
+      isDarkMode={isDarkMode}
+      alignCenter={alignCenter}
+      title={'Brand'}
+      link={menuItems.BRAND.link}
+      icon={<Octocat size={41} color={isDarkMode ? colors.white : colors.dark} />}
+      text={''}
+    />
+  )
+})
+
 export const DiscordChannel = React.memo(function _DiscordChannel({
   alignCenter,
   isDarkMode,

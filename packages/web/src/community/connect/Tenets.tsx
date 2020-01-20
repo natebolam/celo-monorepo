@@ -1,14 +1,12 @@
-import Carousel from 'nuka-carousel'
 import * as React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Fade from 'react-reveal/Fade'
-import PagingDots from 'src/carousel/PagingDots'
 import { H2, H3, H4 } from 'src/fonts/Fonts'
 import { I18nProps, withNamespaces } from 'src/i18n'
 import { Cell, GridRow, Spans } from 'src/layout/GridRow'
 import { hashNav } from 'src/shared/menu-items'
 import ResponsiveImage from 'src/shared/ResponsiveImage'
-import { colors, fonts, standardStyles, textStyles } from 'src/styles'
+import { colors, fonts, standardStyles } from 'src/styles'
 
 type Props = I18nProps
 
@@ -38,56 +36,38 @@ const IMAGE_MAP = {
 }
 
 class Tenets extends React.PureComponent<Props> {
-  componentDidMount() {
-    // ensure the Carousel sizes correctly
-    setImmediate(() => window.dispatchEvent(new Event('resize')))
-  }
   render() {
     const { t } = this.props
     return (
-      <View nativeID={hashNav.connect.tenets} style={standardStyles.sectionMarginBottom}>
+      <View nativeID={hashNav.connect.tenets}>
         <GridRow
-          allStyle={standardStyles.centered}
-          mobileStyle={standardStyles.sectionMarginMobile}
-          tabletStyle={standardStyles.sectionMarginTablet}
-          desktopStyle={standardStyles.sectionMargin}
+          mobileStyle={standardStyles.sectionMarginTopMobile}
+          tabletStyle={standardStyles.sectionMarginTopTablet}
+          desktopStyle={standardStyles.sectionMarginTop}
         >
           <Cell span={Spans.three4th}>
             <Fade bottom={true} distance={'20px'}>
-              <View style={standardStyles.centered}>
-                <H2 style={[textStyles.center, standardStyles.elementalMarginBottom]}>
-                  {t('tenetTitle')}
-                </H2>
-                <H4 style={[textStyles.center]}>{t('tenetSubtitle')}</H4>
+              <View>
+                <H3>{t('tenetSubtitle')}</H3>
+                <H2 style={standardStyles.elementalMargin}>{t('tenetTitle')}</H2>
               </View>
             </Fade>
           </Cell>
         </GridRow>
-        <Fade bottom={true} distance={'20px'}>
-          <Carousel
-            heightMode={'current'}
-            autoplay={false}
-            dragging={true}
-            swiping={true}
-            renderCenterLeftControls={null}
-            renderCenterRightControls={null}
-            renderBottomCenterControls={PagingDots}
-          >
-            {TENET_ILLOS.map((image, index) => {
-              const number = index + 1
-              return (
-                <Tenet
-                  key={number}
-                  title={t(`tenets.${number}`)}
-                  number={number}
-                  copy={t(`tenets.text.${number}`)}
-                  headline={t(`tenets.subtitles.${number}`)}
-                  imageKey={image}
-                />
-              )
-            })}
-          </Carousel>
-        </Fade>
+        {TENET_ILLOS.map((image, index) => {
+          const number = index + 1
+          return (
+            <Fade key={number} bottom={true} distance={'20px'}>
+              <Tenet
+                title={t(`tenets.${number}`)}
+                number={number}
+                copy={t(`tenets.text.${number}`)}
+                headline={t(`tenets.subtitles.${number}`)}
+                imageKey={image}
+              />
+            </Fade>
+          )
+        })}
       </View>
     )
   }
@@ -105,8 +85,12 @@ class Tenet extends React.PureComponent<TenetProps> {
   render() {
     const { number, title, headline, imageKey, copy } = this.props
     return (
-      <View style={styles.tenet}>
-        <GridRow tabletStyle={styles.tabletStyle}>
+      <View>
+        <GridRow
+          desktopStyle={standardStyles.blockMarginTop}
+          tabletStyle={[standardStyles.blockMarginTopTablet, styles.tabletStyle]}
+          mobileStyle={standardStyles.blockMarginTopMobile}
+        >
           <Cell span={Spans.half} style={styles.innerPadding}>
             <H3 style={standardStyles.elementalMarginBottom}>
               {number}. {title}
@@ -129,9 +113,6 @@ class Tenet extends React.PureComponent<TenetProps> {
 
 const DOT_SIZE = 13
 const styles = StyleSheet.create({
-  tenet: {
-    marginBottom: 100,
-  },
   tabletStyle: {
     marginHorizontal: 15,
   },

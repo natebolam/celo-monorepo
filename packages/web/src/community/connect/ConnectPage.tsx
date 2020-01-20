@@ -1,13 +1,9 @@
 import * as React from 'react'
 import { View } from 'react-native'
 import Fade from 'react-reveal/Fade'
-import CodeOfConduct from 'src/community/connect/CodeOfConduct'
-import Contribute from 'src/community/connect/Contribute'
-import CoverArea from 'src/community/connect/CoverArea'
-import FellowSection from 'src/community/connect/FellowSection'
+import Growth from 'src/community/connect/Growth'
 import Tenets from 'src/community/connect/Tenets'
-import EcoFund from 'src/community/EcoFund'
-import { H2 } from 'src/fonts/Fonts'
+import { H3 } from 'src/fonts/Fonts'
 import OpenGraph from 'src/header/OpenGraph'
 import { I18nProps, NameSpaces, withNamespaces } from 'src/i18n'
 import { Cell, GridRow, Spans } from 'src/layout/GridRow'
@@ -45,25 +41,19 @@ export class ConnectPage extends React.Component<Props> {
           image={preview}
         />
         <View>
-          <CoverArea />
-
-          <CodeOfConduct />
           <GridRow
             nativeID={hashNav.connect.events}
             desktopStyle={standardStyles.sectionMarginTop}
             mobileStyle={standardStyles.sectionMarginTopMobile}
           >
-            <Cell span={Spans.full} style={standardStyles.centered}>
+            <Cell span={Spans.full}>
               <Fade bottom={true} distance={'20px'}>
-                <H2>{t('events.title')}</H2>
+                <H3>{t('events.title')}</H3>
               </Fade>
             </Cell>
           </GridRow>
           <EventData />
-
-          <Contribute />
-          <EcoFund />
-          <FellowSection />
+          <Growth />
           <ArticleData />
           <Tenets />
           <View nativeID={hashNav.connect.newsletter}>

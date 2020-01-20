@@ -14,7 +14,7 @@ import { colors, fonts, standardStyles, textStyles } from 'src/styles'
 
 type Props = ScreenProps & I18nProps
 type VoidFunc = () => void
-class CoverArea extends React.PureComponent<Props> {
+class Growth extends React.PureComponent<Props> {
   render() {
     const { screen, t } = this.props
     const isDesktop = screen === ScreenSizes.DESKTOP
@@ -45,11 +45,6 @@ class CoverArea extends React.PureComponent<Props> {
           mobileStyle={standardStyles.sectionMarginBottomMobile}
         >
           <Cell span={Spans.half}>
-            {!isDesktop && (
-              <Fade bottom={true} distance={'40px'}>
-                <FourWords screen={screen} />
-              </Fade>
-            )}
             <Fade bottom={true} distance={'80px'}>
               <View style={[standardStyles.centered, isDesktop && styles.ctArea]}>
                 <H1
@@ -206,4 +201,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default withNamespaces('community')(withScreenSize(CoverArea))
+export default withNamespaces('community')(withScreenSize(Growth))

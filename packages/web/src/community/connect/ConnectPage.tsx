@@ -60,10 +60,11 @@ export class ConnectPage extends React.Component<Props> {
             </Cell>
           </GridRow>
           <EventData />
-          <ArticleData />
+
           <Contribute />
           <EcoFund />
           <FellowSection />
+          <ArticleData />
           <Tenets />
           <View nativeID={hashNav.connect.newsletter}>
             <ConnectionFooter includeDividerLine={true} />

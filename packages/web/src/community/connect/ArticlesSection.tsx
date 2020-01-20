@@ -1,11 +1,9 @@
+import { Articles as ArticleProps } from 'fullstack/ArticleProps'
 import * as React from 'react'
 import { View } from 'react-native'
 import Fade from 'react-reveal/Fade'
 import Articles from 'src/community/Articles'
-
-import { Articles as ArticleProps } from 'fullstack/ArticleProps'
-
-import { H2 } from 'src/fonts/Fonts'
+import { H3 } from 'src/fonts/Fonts'
 import { I18nProps, withNamespaces } from 'src/i18n'
 import MediumLogo from 'src/icons/MediumLogo'
 import { Cell, GridRow, Spans } from 'src/layout/GridRow'
@@ -29,9 +27,9 @@ class ArticlesSection extends React.PureComponent<Props> {
           tabletStyle={[standardStyles.sectionMarginTablet, standardStyles.blockMarginBottomTablet]}
           mobileStyle={[standardStyles.sectionMarginMobile, standardStyles.blockMarginBottomMobile]}
         >
-          <Cell span={Spans.full} style={standardStyles.centered}>
+          <Cell span={Spans.full}>
             <Fade bottom={true} distance={'20px'}>
-              <H2>{t('articles.title')}</H2>
+              <H3>{t('articles.title')}</H3>
             </Fade>
           </Cell>
         </GridRow>

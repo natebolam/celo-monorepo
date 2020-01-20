@@ -1,72 +1,118 @@
 import * as React from 'react'
 import FadeIn from 'react-lazyload-fadein'
-import { StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import Fade from 'react-reveal/Fade'
+import ah from 'src/community/ah-logo-white.png'
 import FullCircle from 'src/community/connect/FullCircle'
-import { H1 } from 'src/fonts/Fonts'
-import EmailForm, { After } from 'src/forms/EmailForm'
-import { I18nProps, withNamespaces } from 'src/i18n'
-import Arrow from 'src/icons/Arrow'
+import polychain from 'src/community/polychain-logo-white.png'
+import { H2, H3 } from 'src/fonts/Fonts'
+import { I18nProps, NameSpaces, Trans, withNamespaces } from 'src/i18n'
 import { Cell, GridRow, Spans } from 'src/layout/GridRow'
 import { ScreenProps, ScreenSizes, withScreenSize } from 'src/layout/ScreenSize'
-import { HEADER_HEIGHT } from 'src/shared/Styles'
+import Rings from 'src/logos/RingsGlyph'
+import Button, { BTN, SIZE } from 'src/shared/Button.3'
+import menuItems from 'src/shared/menu-items'
 import { colors, fonts, standardStyles, textStyles } from 'src/styles'
 
 type Props = ScreenProps & I18nProps
 type VoidFunc = () => void
+
 class Growth extends React.PureComponent<Props> {
   render() {
     const { screen, t } = this.props
     const isDesktop = screen === ScreenSizes.DESKTOP
     return (
       <View style={styles.darkBackground}>
-        <View
-          style={[standardStyles.centered, isDesktop ? styles.fullScreen : styles.economizeScreen]}
+        <GridRow
+          mobileStyle={standardStyles.sectionMarginTopMobile}
+          tabletStyle={standardStyles.sectionMarginTopTablet}
+          desktopStyle={standardStyles.sectionMarginTop}
         >
+          <Cell span={Spans.three4th}>
+            <Fade bottom={true} distance={'20px'}>
+              <View>
+                <H3 style={textStyles.invert}>{t('growth')}</H3>
+                <H2 style={[standardStyles.elementalMarginBottom, textStyles.invert]}>
+                  {t('contributeToEcosystem')}
+                </H2>
+              </View>
+            </Fade>
+          </Cell>
+        </GridRow>
+        <View style={[standardStyles.centered, isDesktop ? styles.fullScreen : null]}>
           <View style={[standardStyles.centered, styles.aboveFold]}>
             <View style={circleContainerStyle(screen)}>
               <FadeIn duration={0} unmountIfInvisible={true}>
                 {(load: VoidFunc) => <FullCircle init={load} lightBackground={false} />}
               </FadeIn>
-              {isDesktop && <FourWords screen={screen} />}
             </View>
-          </View>
-          <View
-            style={[styles.arrow, isDesktop ? styles.arrowLargeScreen : styles.arrowSmallScreen]}
-          >
-            <Arrow color={colors.placeholderDarkMode} size={isDesktop ? 36 : 24} />
           </View>
         </View>
 
         <GridRow
-          allStyle={standardStyles.centered}
-          desktopStyle={standardStyles.sectionMarginBottom}
-          tabletStyle={standardStyles.sectionMarginBottomTablet}
-          mobileStyle={standardStyles.sectionMarginBottomMobile}
+          desktopStyle={standardStyles.blockMarginBottom}
+          tabletStyle={standardStyles.blockMarginBottomTablet}
+          mobileStyle={standardStyles.blockMarginBottomMobile}
         >
           <Cell span={Spans.half}>
-            <Fade bottom={true} distance={'80px'}>
-              <View style={[standardStyles.centered, isDesktop && styles.ctArea]}>
-                <H1
-                  style={[
-                    textStyles.invert,
-                    textStyles.center,
-                    standardStyles.elementalMarginBottom,
-                  ]}
-                >
-                  {t('cover.title')}
-                </H1>
-                <Text style={[fonts.p, textStyles.readingOnDark, styles.formName]}>
-                  {t('cover.joinMovement')}
+            <View style={styles.fundTitleArea}>
+              <H2 style={[standardStyles.elementalMargin, textStyles.invert]}>
+                {t('ecoFund.title')}
+              </H2>
+              <Text style={[fonts.h4, textStyles.invert]}>
+                <Trans ns={NameSpaces.community} i18nKey={'ecoFund.poweredBy'}>
+                  <Text style={textStyles.italic}>polychain</Text>
+                </Trans>
+              </Text>
+            </View>
+          </Cell>
+          <Cell span={Spans.half}>
+            <Text style={[fonts.p, standardStyles.elementalMargin, textStyles.invert]}>
+              {t('ecoFund.description')}
+            </Text>
+            <View style={[standardStyles.row, standardStyles.elementalMargin, standardStyles.wrap]}>
+              <View style={styles.partners}>
+                <Text style={[fonts.h6, styles.partnerText, textStyles.invert]}>
+                  {t('ecoFund.generalPartner')}
                 </Text>
-                <EmailForm
-                  submitText={t('signUp')}
-                  route={'/contacts'}
-                  whenComplete={<After t={t} />}
-                  isDarkMode={true}
+                <Image
+                  resizeMode="contain"
+                  accessibilityLabel="Polychain"
+                  source={{ uri: polychain }}
+                  style={styles.polyChain}
                 />
               </View>
-            </Fade>
+              <View style={styles.partners}>
+                <Text style={[fonts.h6, styles.partnerText, textStyles.invert]}>
+                  {t('ecoFund.limitedPartners')}
+                </Text>
+                <View style={[standardStyles.row, styles.limitedPartners]}>
+                  <Rings color={colors.white} height={40} />
+                  <Image
+                    resizeMode="contain"
+                    accessibilityLabel="a16z"
+                    source={ah}
+                    style={styles.a16z}
+                  />
+                </View>
+              </View>
+            </View>
+            <View style={[standardStyles.row, standardStyles.elementalMargin]}>
+              <Button
+                style={styles.button}
+                text={t('ecoFund.learn')}
+                kind={BTN.NAKED}
+                size={SIZE.normal}
+                href={menuItems.BUILD.link}
+              />
+              <Button
+                style={styles.button}
+                text={t('ecoFund.apply')}
+                kind={BTN.NAKED}
+                size={SIZE.normal}
+                href={menuItems.BUILD.link}
+              />
+            </View>
           </Cell>
         </GridRow>
       </View>
@@ -85,119 +131,49 @@ function circleContainerStyle(screen: ScreenSizes) {
   }
 }
 
-function fourWordsStyle(screen: ScreenSizes) {
-  switch (screen) {
-    case ScreenSizes.DESKTOP:
-      return styles.fourWords
-    case ScreenSizes.TABLET:
-      return styles.fourWordsMobile
-    default:
-      return styles.fourWordsMobile
-  }
-}
-
-function FourWords({ screen }: { screen: ScreenSizes }) {
-  return (
-    <View style={[standardStyles.centered, fourWordsStyle(screen)]}>
-      <Text style={[fonts.specialOneOff, textStyles.center]}>
-        <Text style={styles.greenColor}>Developers. </Text>
-        <Text style={styles.purpleColor}>Designers. </Text>
-      </Text>
-      <Text style={[fonts.specialOneOff, textStyles.center]}>
-        <Text style={styles.redColor}>Dreamers. </Text>
-        <Text style={styles.blueColor}>Doers. </Text>
-      </Text>
-    </View>
-  )
-}
-
 const styles = StyleSheet.create({
   fullScreen: {
     width: '100vw',
-    height: '100vh',
-    maxHeight: '100vw', // so large tablets dont make the circle area oddly tall
-  },
-  economizeScreen: {
-    marginTop: HEADER_HEIGHT,
   },
   aboveFold: { justifyContent: 'space-around', width: '100%', padding: 20 },
   darkBackground: {
     backgroundColor: colors.dark,
   },
-  greenColor: {
-    color: colors.primary,
-  },
-  redColor: {
-    color: colors.red,
-  },
-  blueColor: {
-    color: colors.lightBlue,
-  },
-  purpleColor: {
-    color: colors.purple,
-  },
-  fourWords: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    width: '100%',
-  },
-  fourWordsMobile: {
-    width: '100%',
-    marginBottom: 50,
+  button: {
+    marginVertical: 15,
+    marginRight: 30,
   },
   circleContainer: {
-    width: '100%',
+    width: '90%',
   },
   circleContainerMedium: {
-    width: '80vw',
-    maxWidth: '60vh',
+    width: '70vw',
+    maxWidth: '55vh',
   },
   circleContainerLarge: {
-    width: '73vh',
-    maxWidth: '75vw',
-    maxHeight: '80vh',
+    width: 652,
   },
-  ctArea: {
-    paddingHorizontal: 65,
-    marginBottom: 50,
+  fundTitleArea: { maxWidth: 428 },
+  partners: {
+    justifyContent: 'space-between',
   },
-  formName: {
-    marginVertical: 10,
+  partnerText: {
+    marginTop: 20,
+    marginBottom: 10,
   },
-  arrowLargeScreen: {
-    alignItems: 'flex-end',
-    position: 'absolute',
-    bottom: 20,
-    right: 80,
+  limitedPartners: {
+    alignItems: 'center',
   },
-  arrowSmallScreen: {
-    bottom: -60,
-    marginTop: 10,
-    alignSelf: 'center',
+  polyChain: {
+    marginRight: 40,
+    marginBottom: 3,
+    width: 190,
+    height: 35,
   },
-  arrow: {
-    animationDuration: `4s`,
-    animationDelay: '3s',
-    animationFillMode: 'both',
-    animationIterationCount: 8,
-    animationKeyframes: [
-      {
-        '0%': {
-          opacity: 0,
-          transform: [{ translate3d: '0, -300%, 0' }],
-        },
-        '30%': {
-          opacity: 1,
-        },
-        '100%': {
-          opacity: 0,
-          transform: [{ translate3d: '0, -100%, 0' }],
-        },
-      },
-    ],
+  a16z: {
+    width: 128,
+    height: 35,
+    marginHorizontal: 30,
   },
 })
 

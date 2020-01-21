@@ -5,6 +5,7 @@ import Fade from 'react-reveal/Fade'
 import ah from 'src/community/ah-logo-white.png'
 import FullCircle from 'src/community/connect/FullCircle'
 import polychain from 'src/community/polychain-logo-white.png'
+import CoverAction from 'src/dev/CoverAction'
 import { H2, H3 } from 'src/fonts/Fonts'
 import { I18nProps, NameSpaces, Trans, withNamespaces } from 'src/i18n'
 import { Cell, GridRow, Spans } from 'src/layout/GridRow'
@@ -114,6 +115,14 @@ class Growth extends React.PureComponent<Props> {
               />
             </View>
           </Cell>
+        </GridRow>
+        <GridRow>
+          <Cell span={Spans.third}>
+            <H3 style={textStyles.invert}>{t('contribute.title')}</H3>
+            <CoverAction title={t('contribute.growth')} isMobile={false} graphic={{ uri: '' }} />
+          </Cell>
+          <Cell span={Spans.third}>{}</Cell>
+          <Cell span={Spans.third}>{}</Cell>
         </GridRow>
       </View>
     )

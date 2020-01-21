@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import Fade from 'react-reveal/Fade'
 import Growth from 'src/community/connect/Growth'
 import Tenets from 'src/community/connect/Tenets'
+import ConnectCover from 'src/community/ConnectCover'
 import { H3 } from 'src/fonts/Fonts'
 import OpenGraph from 'src/header/OpenGraph'
 import { I18nProps, NameSpaces, withNamespaces } from 'src/i18n'
@@ -41,6 +42,7 @@ export class ConnectPage extends React.Component<Props> {
           image={preview}
         />
         <View>
+          <ConnectCover />
           <GridRow
             nativeID={hashNav.connect.events}
             desktopStyle={standardStyles.sectionMarginTop}
